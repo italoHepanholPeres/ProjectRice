@@ -7,6 +7,7 @@ export default function NavBar() {
   return (
     <nav className="NavBar">
       <h1>Project Rice</h1>
+      <h1>po</h1>
       <div className="Search">
         <input
           type="text"
