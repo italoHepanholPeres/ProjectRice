@@ -4,10 +4,11 @@ import "./NavBar.css";
 export default function NavBar() {
   const [manga, setManga] = useState("");
 
+  //const searchManga = (mangaName: string) => {};
+
   return (
     <nav className="NavBar">
       <h1>Project Rice</h1>
-      <h1>po</h1>
       <div className="Search">
         <input
           type="text"
