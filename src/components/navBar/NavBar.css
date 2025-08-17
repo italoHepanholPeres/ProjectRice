@@ -1,0 +1,21 @@
+.NavBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: darkgrey;
+  padding: 10px;
+  border-radius: 12px;
+}
+
+.Search {
+  display: flex;
+  justify-content: space-between;
+}
+
+.InputText {
+  border-radius: 8px;
+}
+
+.Submit {
+  border-radius: 5px;
+}
