@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "./NavBar.css";
+import "./NavBarStyle.css";
 
 export default function NavBar() {
   const [manga, setManga] = useState("");
