@@ -5,11 +5,6 @@ function App() {
   return (
     <div>
       <NavBar />
-      <div>
-        <h1>teste</h1>
-        <h1>teste</h1>
-        <h1>teste</h1>
-      </div>
     </div>
   );
 }

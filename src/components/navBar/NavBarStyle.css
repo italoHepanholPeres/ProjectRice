@@ -2,20 +2,37 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+
   background-color: darkgrey;
+
   padding: 10px;
+  margin: 50px;
+  margin-top: 25px;
   border-radius: 12px;
 }
 
-.Search {
-  display: flex;
-  justify-content: space-between;
+.Title {
+  padding-left: 100px;
+  font-size: 40px;
 }
 
-.InputText {
+.SearchFields {
+  display: flex;
+  margin: 40px;
+}
+
+.SearchBar {
   border-radius: 8px;
+  width: 240px;
+
+  font-size: 115%;
 }
 
 .Submit {
+  margin-left: 5px;
   border-radius: 5px;
+  height: 25px;
+  width: 125px;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 95%;
 }

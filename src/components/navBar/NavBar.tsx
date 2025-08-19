@@ -2,20 +2,20 @@ import { useState } from "react";
 import "./NavBarStyle.css";
 
 export default function NavBar() {
-  const [manga, setManga] = useState("");
+  const [mangaTitle, setMangaTitle] = useState("");
 
   //const searchManga = (mangaName: string) => {};
 
   return (
     <nav className="NavBar">
-      <h1>Project Rice</h1>
-      <div className="Search">
+      <h1 className="Title">Project Rice</h1>
+      <div className="SearchFields">
         <input
           type="text"
-          className="InputText"
-          onChange={(e) => setManga(e.target.value)}
+          className="SearchBar"
+          onChange={(e) => setMangaTitle(e.target.value)}
         />
-        <button className="Submit" onClick={() => console.log(manga)}>
+        <button className="Submit" onClick={() => console.log(mangaTitle)}>
           Pesquisar
         </button>
       </div>
