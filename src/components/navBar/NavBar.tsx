@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "./NavBarStyle.css";
+import Menu from "../menu/Menu";
 
 export default function NavBar() {
   const [mangaTitle, setMangaTitle] = useState("");
@@ -7,8 +8,9 @@ export default function NavBar() {
   //const searchManga = (mangaName: string) => {};
 
   return (
-    <nav className="NavBar">
-      <h1 className="Title">Project Rice</h1>
+    <nav className="">
+      <Menu />
+      <h1 className="">Project Rice</h1>
       <div className="SearchFields">
         <input
           type="text"
