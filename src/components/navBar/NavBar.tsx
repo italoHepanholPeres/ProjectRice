@@ -22,10 +22,10 @@ export default function NavBar() {
         <input
           ref={inputSearch}
           type="text"
-          className="rounded-lg bg-white text-2xl text-black"
+          className="rounded-lg bg-white text-2xl text-black text-shadow-indigo-700"
         />
         <button
-          className="w-40 rounded-lg bg-black text-2xl"
+          className="w-40 rounded-lg bg-black text-2xl hover:bg-blue-950"
           onClick={() => console.log(inputSearch.current?.value)}
         >
           Pesquisar
