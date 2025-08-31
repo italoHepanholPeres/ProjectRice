@@ -26,8 +26,7 @@ export default function HorizontalList({
       </div>
     );
   }
-
-  console.log(mangas);
+  //console.log(mangas[3].cover);
   return (
     <div className="w-full p-4">
       {title && <h2 className="mb-4 text-xl font-bold">{title}</h2>}

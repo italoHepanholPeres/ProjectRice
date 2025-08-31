@@ -1,6 +1,7 @@
 import axios from "axios";
 
 const baseUrl: string = "https://api.mangadex.org/";
+const coverUrl: string = "https://api.mangadex.org/cover/";
 
 export async function SearchMangas(title: string) {
   const response = await axios.get(`${baseUrl}manga`);
@@ -12,6 +13,15 @@ export async function SearchMangas(title: string) {
 export async function getMangas() {
   try {
     const response = await axios.get(`${baseUrl}manga`);
+    return response.data.data;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function getCoverData(id: string) {
+  try {
+    const response = await axios.get(`${coverUrl}${id}`);
     return response.data.data;
   } catch (error) {
     console.log(error);

@@ -18,6 +18,8 @@ export default function Card({
     onCardClick(id);
   };
 
+  //console.log(coverImage);
+
   return (
     <div
       className="m-3.5 w-48 transform cursor-pointer overflow-hidden rounded-lg bg-white p-2 shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
