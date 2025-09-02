@@ -3,11 +3,11 @@ import { getCoverData } from "../api/MangaService";
 interface Manga {
   id: string;
   title: string;
-  cover: string;
+  coverUrl: string;
   additionalInfo?: string;
 }
 //Manga
-export default async function Mapper(manga: any) {
+export default async function Mapper(manga: any): Promise<Manga> {
   const id: string = manga.id;
 
   const title: string =
@@ -26,12 +26,6 @@ export default async function Mapper(manga: any) {
 
   const coverUrl = `https://uploads.mangadex.org/covers/${id}/${fileName}`;
 
-  console.log(id);
-  console.log(title);
-  console.log(coverId);
-  console.log(coverObject);
-  console.log(coverUrl);
-  console.log("acabou");
   return {
     id,
     title,

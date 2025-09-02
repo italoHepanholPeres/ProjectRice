@@ -2,7 +2,7 @@
 interface MangaCardProps {
   id: string;
   title: string;
-  coverImage: string;
+  coverUrl: string;
   additionalInfo?: string;
   onCardClick: (id: string) => void;
 }
@@ -10,7 +10,7 @@ interface MangaCardProps {
 export default function Card({
   id,
   title,
-  coverImage,
+  coverUrl,
   additionalInfo,
   onCardClick,
 }: MangaCardProps) {
@@ -27,7 +27,7 @@ export default function Card({
     >
       <div className="relative">
         <img
-          src={coverImage}
+          src={coverUrl}
           alt={`Capa de ${title}`}
           className="h-64 w-full object-cover"
           onError={(e) => {

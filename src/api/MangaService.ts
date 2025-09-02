@@ -12,7 +12,13 @@ export async function SearchMangas(title: string) {
 
 export async function getMangas() {
   try {
-    const response = await axios.get(`${baseUrl}manga`);
+    const response = await axios.get(`${baseUrl}manga`, {
+      params: {
+        limit: 10,
+        "order[updatedAt]": "desc",
+        "contentRating[]": ["safe"],
+      },
+    });
     return response.data.data;
   } catch (error) {
     console.log(error);

@@ -3,7 +3,7 @@ import Card from "../card/Card";
 interface Manga {
   id: string;
   title: string;
-  cover: string;
+  coverUrl: string;
   additionalInfo?: string;
 }
 
@@ -38,7 +38,7 @@ export default function HorizontalList({
               <Card
                 id={manga.id}
                 title={manga.title}
-                coverImage={manga.cover}
+                coverUrl={manga.coverUrl}
                 additionalInfo={manga.additionalInfo}
                 onCardClick={onMangaClick}
               />

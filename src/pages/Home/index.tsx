@@ -22,7 +22,6 @@ function Home() {
     }
     fetchData();
   }, []);
-
   if (mangas.length === 0) {
     return (
       <div className="flex h-screen w-full flex-col bg-purple-400 bg-gradient-to-b from-purple-700 to-purple-500">
