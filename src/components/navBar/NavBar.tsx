@@ -9,7 +9,7 @@ export default function NavBar() {
   //const searchManga = (mangaName: string) => {};
 
   return (
-    <nav className="flex w-full flex-row items-center justify-between bg-blue-900 px-6 py-3 text-white shadow-md">
+    <nav className="flex w-full flex-row items-center justify-between bg-blue-950 px-6 py-3 text-white shadow-md">
       <button
         onClick={() => setOpen(true)}
         className="rounded-lg bg-blue-600 px-4 py-2 transition hover:bg-blue-700"

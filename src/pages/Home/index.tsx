@@ -33,7 +33,7 @@ function Home() {
     );
   }
   return (
-    <div className="flex h-screen w-full flex-col bg-purple-400 bg-gradient-to-b from-purple-700 to-purple-500">
+    <div className="flex h-screen w-full flex-col bg-blue-900">
       <NavBar />
       <Divider text="Lançamentos recentes" />
       <HorizontalList
