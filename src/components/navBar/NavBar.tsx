@@ -30,7 +30,7 @@ export default function NavBar() {
     const value = inputSearch.current?.value.trim();
     if (value) {
       alert(`Você pesquisou por: ${value}`);
-      // aqui no futuro você pode chamar a função de pesquisa ou navegação
+      // Função de pesquisa que ainda não temos
     }
   }}
         >
