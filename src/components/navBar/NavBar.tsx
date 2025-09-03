@@ -26,7 +26,13 @@ export default function NavBar() {
         />
         <button
           className="w-40 rounded-lg bg-black text-2xl hover:bg-blue-950"
-          onClick={() => console.log(inputSearch.current?.value)}
+          onClick={() => {
+    const value = inputSearch.current?.value.trim();
+    if (value) {
+      alert(`Você pesquisou por: ${value}`);
+      // aqui no futuro você pode chamar a função de pesquisa ou navegação
+    }
+  }}
         >
           Pesquisar
         </button>

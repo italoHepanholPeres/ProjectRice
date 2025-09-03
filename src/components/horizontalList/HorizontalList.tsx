@@ -19,12 +19,12 @@ export default function HorizontalList({
   title,
   onMangaClick,
 }: HorizontalListProps) {
-const scrollRef = useRef<HTMLDivElement>(null);//
+const scrollRef = useRef<HTMLDivElement>(null);
 
 const handleWheel = (e: React.WheelEvent) => {
   if (scrollRef.current) {
-    e.preventDefault(); // impede o scroll vertical padrão
-    scrollRef.current.scrollLeft += e.deltaY; // move horizontal
+    e.preventDefault(); 
+    scrollRef.current.scrollLeft += e.deltaY; 
   }
 };
 
