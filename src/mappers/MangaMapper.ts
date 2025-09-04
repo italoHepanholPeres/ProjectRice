@@ -13,7 +13,11 @@ export default async function Mapper(manga: any): Promise<Manga> {
   const title: string =
     manga.attributes?.title?.["pt-br"] ||
     manga.attributes?.title?.["en"] ||
+    manga.attributes?.title?.["ja-ro"] ||
     manga.attributes?.title?.["ja"] ||
+    manga.attributes?.altTitles?.find((t: any) => t["pt-br"])?.["pt-br"] ||
+    manga.attributes?.altTitles?.find((t: any) => t["en"])?.["en"] ||
+    manga.attributes?.altTitles?.find((t: any) => t["ja-ro"])?.["ja-ro"] ||
     "sem título";
 
   const coverInManga = manga.relationships?.find(

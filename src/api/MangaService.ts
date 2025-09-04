@@ -14,7 +14,7 @@ export async function getMangas() {
   try {
     const response = await axios.get(`${baseUrl}manga`, {
       params: {
-        limit: 10,
+        limit: 15,
         "order[updatedAt]": "desc",
         "contentRating[]": ["safe"],
       },
