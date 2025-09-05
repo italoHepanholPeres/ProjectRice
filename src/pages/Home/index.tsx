@@ -3,7 +3,6 @@ import { getMangas } from "../../api/MangaService";
 import Divider from "../../components/divider/Divider";
 import HorizontalList from "../../components/horizontalList/HorizontalList";
 import NavBar from "../../components/navBar/NavBar";
-import Mapper from "../../mappers/MangaMapper";
 
 function Home() {
   const [mangas, setMangas] = useState<any[]>([]);
@@ -15,10 +14,8 @@ function Home() {
   useEffect(() => {
     async function fetchData() {
       const data = await getMangas();
-      const mappedMangas = await Promise.all(
-        data.map((manga: any) => Mapper(manga)),
-      );
-      setMangas(mappedMangas);
+
+      setMangas(data);
     }
     fetchData();
   }, []);
@@ -26,7 +23,7 @@ function Home() {
     return (
       <div className="flex h-screen w-full flex-col bg-blue-900 bg-gradient-to-b from-blue-900 to-blue-800">
         <NavBar />
-        <Divider text="Lançamentos recentes" />
+        <Divider text="Atualizados recentemente" />
         <p>carregando</p>
         <Divider text="Continuar lendo" />
       </div>
@@ -35,7 +32,7 @@ function Home() {
   return (
     <div className="flex h-screen w-full flex-col bg-blue-900 bg-gradient-to-b from-blue-900 to-blue-800">
       <NavBar />
-      <Divider text="Lançamentos recentes" />
+      <Divider text="Atualizados recentemente" />
       <HorizontalList
         mangas={mangas}
         onMangaClick={() => {

@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { getMangaByTitle } from "../../api/MangaService";
 import VerticalList from "../../components/verticalList/VerticalList";
-import Mapper from "../../mappers/MangaMapper";
 import type { Manga } from "../../interfaces/Manga";
 
 export default function Search() {
@@ -16,10 +15,12 @@ export default function Search() {
       setLoading(true);
       if (title) {
         const data = await getMangaByTitle(title);
-        const mapped = await Promise.all(
-          data.map((manga: any) => Mapper(manga)),
-        );
-        setMangas(mapped);
+
+        //nao precisa pq ja ta no getMangaByTitle
+        //const mapped = await Promise.all(
+        //  data.map((manga: any) => Mapper(manga)),
+        //);
+        setMangas(data);
       }
       setLoading(false);
     }
