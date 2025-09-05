@@ -1,10 +1,17 @@
 import { useRef, useState } from "react";
 import Sidebar from "../sideBar/SideBar";
+import { getMangaByTitle } from "../../api/MangaService";
+import { useNavigate } from "react-router-dom";
 
 export default function NavBar() {
   const [open, setOpen] = useState(false);
 
   const inputSearch = useRef<HTMLInputElement>(null);
+  const navigate = useNavigate();
+
+  function onSearchClick(value: string) {
+    navigate(`/search?title=${value}`);
+  }
 
   //const searchManga = (mangaName: string) => {};
 
@@ -27,12 +34,14 @@ export default function NavBar() {
         <button
           className="w-40 rounded-lg bg-black text-2xl hover:bg-blue-950"
           onClick={() => {
-    const value = inputSearch.current?.value.trim();
-    if (value) {
-      alert(`Você pesquisou por: ${value}`);
-      // Função de pesquisa que ainda não temos
-    }
-  }}
+            const value = inputSearch.current?.value.trim();
+            if (value) {
+              //alert(`Você pesquisou por: ${value} `);
+              //const foundedManga = getMangaByTitle(value);
+              //console.log(foundedManga);
+              onSearchClick(value);
+            }
+          }}
         >
           Pesquisar
         </button>

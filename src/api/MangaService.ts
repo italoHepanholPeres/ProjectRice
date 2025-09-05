@@ -25,6 +25,20 @@ export async function getMangas() {
   }
 }
 
+export async function getMangaByTitle(title: string) {
+  try {
+    const response = await axios.get(`${baseUrl}/manga`, {
+      params: {
+        limit: 15,
+        title: title,
+      },
+    });
+    return response.data.data;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 export async function getCoverData(id: string) {
   try {
     const response = await axios.get(`${coverUrl}${id}`);
