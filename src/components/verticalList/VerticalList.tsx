@@ -20,20 +20,20 @@ export default function VerticalList({
 }: VerticalListProps) {
   if (!mangas || mangas.length === 0) {
     return (
-      <div className="p-4">
-        {title && <h2 className="mb-4 text-xl font-bold">{title}</h2>}
-        <p className="text-gray-500">Nenhum mangá disponível.</p>
+      <div className="p-6 flex flex-col items-center justify-center text-gray-400">
+        {title && <h2 className="mb-6 text-2xl font-bold">{title}</h2>}
+        <p>Nenhum mangá disponível.</p>
       </div>
     );
   }
 
   return (
-    <div className="w-full p-4">
-      {title && <h2 className="mb-4 text-xl font-bold">{title}</h2>}
-
-      <div className="flex flex-col space-y-4 overflow-y-auto max-h-[600px] hide-scrollbar">
+    <div className="h-full w-full p-6 bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 min-h-screen">
+      {title && <h2 className="mb-6 text-2xl font-bold text-white">{title}</h2>}
+      <div className="flex flex-col gap-4 overflow-y-auto max-h-[80vh] pr-2 scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-gray-900">
         {mangas.map((manga) => (
-          <Card
+          <div key={manga.id} className="w-32 aspect-[2/3]">
+            <Card
             key={manga.id}
             id={manga.id}
             title={manga.title}
@@ -41,6 +41,7 @@ export default function VerticalList({
             additionalInfo={manga.additionalInfo}
             onCardClick={onMangaClick}
           />
+          </div>
         ))}
       </div>
     </div>

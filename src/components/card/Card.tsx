@@ -29,7 +29,7 @@ export default function Card({
         <img
           src={coverUrl}
           alt={`Capa de ${title}`}
-          className="h-64 w-full object-cover"
+          className="h-full w-full object-cover"
           onError={(e) => {
             // Fallback image in case of error
             e.currentTarget.src =

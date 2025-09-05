@@ -30,6 +30,14 @@ export default function NavBar() {
           ref={inputSearch}
           type="text"
           className="rounded-lg bg-white text-2xl text-black text-shadow-indigo-700"
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              const value = inputSearch.current?.value.trim();
+              if (value) {
+                onSearchClick(value);
+              }
+            }
+          }}
         />
         <button
           className="w-40 rounded-lg bg-black text-2xl hover:bg-blue-950"
