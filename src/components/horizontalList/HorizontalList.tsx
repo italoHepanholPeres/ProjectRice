@@ -1,12 +1,6 @@
 import { useRef } from "react";
 import Card from "../card/Card";
-
-interface Manga {
-  id: string;
-  title: string;
-  coverUrl: string;
-  additionalInfo?: string;
-}
+import type { Manga } from "../../interfaces/Manga";
 
 interface HorizontalListProps {
   mangas: Manga[];
@@ -19,14 +13,14 @@ export default function HorizontalList({
   title,
   onMangaClick,
 }: HorizontalListProps) {
-const scrollRef = useRef<HTMLDivElement>(null);
+  const scrollRef = useRef<HTMLDivElement>(null);
 
-const handleWheel = (e: React.WheelEvent) => {
-  if (scrollRef.current) {
-    e.preventDefault(); 
-    scrollRef.current.scrollLeft += e.deltaY; 
-  }
-};
+  const handleWheel = (e: React.WheelEvent) => {
+    if (scrollRef.current) {
+      e.preventDefault();
+      scrollRef.current.scrollLeft += e.deltaY;
+    }
+  };
 
   if (!mangas || mangas.length === 0) {
     return (
@@ -41,7 +35,11 @@ const handleWheel = (e: React.WheelEvent) => {
     <div className="w-full p-4">
       {title && <h2 className="mb-4 text-xl font-bold">{title}</h2>}
 
-      <div ref={scrollRef} onWheel={handleWheel} className="hide-scrollbar flex overflow-x-auto pb-4">
+      <div
+        ref={scrollRef}
+        onWheel={handleWheel}
+        className="hide-scrollbar flex overflow-x-auto pb-4"
+      >
         <div className="flex space-x-4">
           {mangas.map((manga) => (
             <div key={manga.id} className="flex-none">

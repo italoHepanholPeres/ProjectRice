@@ -3,14 +3,7 @@ import { useSearchParams } from "react-router-dom";
 import { getMangaByTitle } from "../../api/MangaService";
 import VerticalList from "../../components/verticalList/VerticalList";
 import Mapper from "../../mappers/MangaMapper";
-import HorizontalList from "../../components/horizontalList/HorizontalList";
-
-interface Manga {
-  id: string;
-  title: string;
-  coverUrl: string;
-  additionalInfo?: string;
-}
+import type { Manga } from "../../interfaces/Manga";
 
 export default function Search() {
   const [searchParams] = useSearchParams();
@@ -22,8 +15,10 @@ export default function Search() {
     async function fetchMangas() {
       setLoading(true);
       if (title) {
-        const data = await getMangaByTitle(title); 
-        const mapped = await Promise.all(data.map((manga: any) => Mapper(manga)));
+        const data = await getMangaByTitle(title);
+        const mapped = await Promise.all(
+          data.map((manga: any) => Mapper(manga)),
+        );
         setMangas(mapped);
       }
       setLoading(false);

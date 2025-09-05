@@ -1,11 +1,5 @@
 //card onde os mangás estarão sendo guardados e usados
-interface MangaCardProps {
-  id: string;
-  title: string;
-  coverUrl: string;
-  additionalInfo?: string;
-  onCardClick: (id: string) => void;
-}
+import type { MangaCardProps } from "../../interfaces/MangaCardProps";
 
 export default function Card({
   id,

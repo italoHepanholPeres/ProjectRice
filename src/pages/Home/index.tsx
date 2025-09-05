@@ -24,7 +24,7 @@ function Home() {
   }, []);
   if (mangas.length === 0) {
     return (
-      <div className="flex h-screen w-full flex-col bg-purple-400 bg-gradient-to-b from-purple-700 to-purple-500">
+      <div className="flex h-screen w-full flex-col bg-blue-900 bg-gradient-to-b from-blue-900 to-blue-800">
         <NavBar />
         <Divider text="Lançamentos recentes" />
         <p>carregando</p>
@@ -33,7 +33,7 @@ function Home() {
     );
   }
   return (
-    <div className="flex h-screen w-full flex-col bg-blue-900">
+    <div className="flex h-screen w-full flex-col bg-blue-900 bg-gradient-to-b from-blue-900 to-blue-800">
       <NavBar />
       <Divider text="Lançamentos recentes" />
       <HorizontalList

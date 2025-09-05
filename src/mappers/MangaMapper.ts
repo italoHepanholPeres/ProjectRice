@@ -1,11 +1,6 @@
 import { getCoverData } from "../api/MangaService";
+import type { Manga } from "../interfaces/Manga";
 
-interface Manga {
-  id: string;
-  title: string;
-  coverUrl: string;
-  additionalInfo?: string;
-}
 //Manga
 export default async function Mapper(manga: any): Promise<Manga> {
   const id: string = manga.id;

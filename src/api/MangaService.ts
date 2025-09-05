@@ -31,6 +31,8 @@ export async function getMangaByTitle(title: string) {
       params: {
         limit: 15,
         title: title,
+        "order[updatedAt]": "desc",
+        "contentRating[]": ["safe"],
       },
     });
     return response.data.data;
