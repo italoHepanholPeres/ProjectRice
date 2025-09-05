@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
-import { getMangas } from "../../api/MangaService";
+import { getMangaByTags, getMangas } from "../../api/MangaService";
 import Divider from "../../components/divider/Divider";
 import HorizontalList from "../../components/horizontalList/HorizontalList";
 import NavBar from "../../components/navBar/NavBar";
 
 function Home() {
-  const [mangas, setMangas] = useState<any[]>([]);
+  const [lastUpdateMangas, setlastUpdateMangas] = useState<any[]>([]);
+  const [isekaiMangas, setIsekaiMangas] = useState<any[]>([]);
 
   //console.log(mangas[0]);
   //const teste = Mapper(mangas[0]);
@@ -13,13 +14,15 @@ function Home() {
 
   useEffect(() => {
     async function fetchData() {
-      const data = await getMangas();
+      const lastUpdateData = await getMangas();
+      setlastUpdateMangas(lastUpdateData);
 
-      setMangas(data);
+      const isekaiData = await getMangaByTags(["Isekai"]);
+      setIsekaiMangas(isekaiData);
     }
     fetchData();
   }, []);
-  if (mangas.length === 0) {
+  if (lastUpdateMangas.length === 0) {
     return (
       <div className="flex h-screen w-full flex-col bg-blue-900 bg-gradient-to-b from-blue-900 to-blue-800">
         <NavBar />
@@ -30,16 +33,22 @@ function Home() {
     );
   }
   return (
-    <div className="flex h-screen w-full flex-col bg-blue-900 bg-gradient-to-b from-blue-900 to-blue-800">
+    <div className="flex h-screen w-screen flex-col bg-blue-900 bg-gradient-to-b from-blue-900 to-blue-800">
       <NavBar />
       <Divider text="Atualizados recentemente" />
       <HorizontalList
-        mangas={mangas}
+        mangas={lastUpdateMangas}
         onMangaClick={() => {
           console.log("você acessou o manga");
         }}
       />
-      <Divider text="Continuar lendo" />
+      <Divider text="Isekai" />
+      <HorizontalList
+        mangas={isekaiMangas}
+        onMangaClick={() => {
+          console.log("você acessou o manga");
+        }}
+      />
     </div>
   );
 }

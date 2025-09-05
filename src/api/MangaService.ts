@@ -1,8 +1,9 @@
 import axios from "axios";
 import Mapper from "../mappers/MangaMapper";
 import type { Manga } from "../interfaces/Manga";
+import type { MangaTag } from "../interfaces/MangaTag";
 
-const baseUrl: string = "https://api.mangadex.org/";
+const mangaUrl: string = "https://api.mangadex.org/manga";
 const coverUrl: string = "https://api.mangadex.org/cover/";
 
 //mapeia o json
@@ -24,7 +25,7 @@ async function mapMangas(mangas: Manga[]) {
 
 export async function getMangas() {
   try {
-    const response = await axios.get(`${baseUrl}manga`, {
+    const response = await axios.get(`${mangaUrl}`, {
       params: {
         limit: 15,
         "order[updatedAt]": "desc",
@@ -43,7 +44,7 @@ export async function getMangas() {
 
 export async function getMangaByTitle(title: string): Promise<Manga[]> {
   try {
-    const response = await axios.get(`${baseUrl}/manga`, {
+    const response = await axios.get(`${mangaUrl}`, {
       params: {
         limit: 15,
         title: title,
@@ -67,4 +68,33 @@ export async function getCoverData(id: string) {
   } catch (error) {
     console.log(error);
   }
+}
+
+export async function getMangaByTags(
+  includedTagsNames: string[] = [],
+  excludedTagsNames: string[] = [],
+) {
+  const apiTags = await axios(`${mangaUrl}/tag`);
+
+  const includedTagIDs = apiTags.data.data
+    .filter((tag: MangaTag) =>
+      includedTagsNames.includes(tag.attributes.name.en),
+    )
+    .map((tag: MangaTag) => tag.id);
+
+  const excludedTagIDs = apiTags.data.data
+    .filter((tag: MangaTag) =>
+      excludedTagsNames.includes(tag.attributes.name.en),
+    )
+    .map((tag: MangaTag) => tag.id);
+
+  const response = axios.get(`${mangaUrl}`, {
+    params: {
+      includedTags: includedTagIDs,
+      excludedTags: excludedTagIDs,
+    },
+  });
+
+  const mapped = mapMangas((await response).data.data);
+  return mapped;
 }
