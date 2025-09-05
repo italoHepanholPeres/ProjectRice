@@ -48,7 +48,6 @@ export async function getMangaByTitle(title: string): Promise<Manga[]> {
       params: {
         limit: 15,
         title: title,
-        "order[updatedAt]": "desc",
         "contentRating[]": ["safe"],
       },
     });
@@ -90,8 +89,10 @@ export async function getMangaByTags(
 
   const response = axios.get(`${mangaUrl}`, {
     params: {
+      limit: 15,
       includedTags: includedTagIDs,
       excludedTags: excludedTagIDs,
+      "contentRating[]": ["safe"],
     },
   });
 
