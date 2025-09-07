@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import Card from "../card/Card";
-import type { Manga } from "../../interfaces/Manga";
+import type { Manga } from "../../entities/Manga";
 
 interface HorizontalListProps {
   mangas: Manga[];

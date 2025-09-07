@@ -3,6 +3,7 @@ import { getMangaByTags, getMangas } from "../../api/MangaService";
 import Divider from "../../components/divider/Divider";
 import HorizontalList from "../../components/horizontalList/HorizontalList";
 import NavBar from "../../components/navBar/NavBar";
+import { Tags } from "../../constants/Tags";
 
 function Home() {
   const [lastUpdateMangas, setlastUpdateMangas] = useState<any[]>([]);
@@ -14,10 +15,11 @@ function Home() {
 
   useEffect(() => {
     async function fetchData() {
+      //chama e define a lista Atualizados recentemente
       const lastUpdateData = await getMangas();
       setlastUpdateMangas(lastUpdateData);
 
-      const isekaiData = await getMangaByTags(["Isekai"]);
+      const isekaiData = await getMangaByTags([Tags.Genderswap]);
       setIsekaiMangas(isekaiData);
     }
     fetchData();

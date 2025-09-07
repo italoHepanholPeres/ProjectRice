@@ -1,7 +1,7 @@
 import axios from "axios";
+import type { Manga } from "../entities/Manga";
+import type { MangaTag } from "../entities/MangaTag";
 import Mapper from "../mappers/MangaMapper";
-import type { Manga } from "../interfaces/Manga";
-import type { MangaTag } from "../interfaces/MangaTag";
 
 const mangaUrl: string = "https://api.mangadex.org/manga";
 const coverUrl: string = "https://api.mangadex.org/cover/";

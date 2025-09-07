@@ -1,5 +1,5 @@
 //card onde os mangás estarão sendo guardados e usados
-import type { MangaCardProps } from "../../interfaces/MangaCardProps";
+import type { MangaCardProps } from "../../entities/MangaCardProps";
 
 export default function Card({
   id,
