@@ -8,6 +8,7 @@ import { Tags } from "../../constants/Tags";
 function Home() {
   const [lastUpdateMangas, setlastUpdateMangas] = useState<any[]>([]);
   const [isekaiMangas, setIsekaiMangas] = useState<any[]>([]);
+  const [romanceMangas, setRomanceMangas] = useState<any[]>([]);
 
   //console.log(mangas[0]);
   //const teste = Mapper(mangas[0]);
@@ -21,6 +22,9 @@ function Home() {
 
       const isekaiData = await getMangaByTags([Tags.Isekai]);
       setIsekaiMangas(isekaiData);
+
+      const romanceData = await getMangaByTags([Tags.Romance]);
+      setRomanceMangas(romanceData);
     }
     fetchData();
   }, []);
@@ -35,7 +39,7 @@ function Home() {
     );
   }
   return (
-    <div className="flex h-screen w-screen flex-col bg-blue-900 bg-gradient-to-b from-blue-900 to-blue-800">
+    <div className="flex h-full w-full flex-col bg-blue-900 bg-gradient-to-b from-blue-900 to-blue-800">
       <NavBar />
       <Divider text="Atualizados recentemente" />
       <HorizontalList
@@ -47,6 +51,13 @@ function Home() {
       <Divider text="Isekai" />
       <HorizontalList
         mangas={isekaiMangas}
+        onMangaClick={() => {
+          console.log("você acessou o manga");
+        }}
+      />
+      <Divider text="Romance" />
+      <HorizontalList
+        mangas={romanceMangas}
         onMangaClick={() => {
           console.log("você acessou o manga");
         }}

@@ -16,7 +16,7 @@ export default function Card({
 
   return (
     <div
-      className="m-3.5 w-48 transform cursor-pointer overflow-hidden rounded-lg bg-white p-2 shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+      className="m-3.5 w-48 transform cursor-pointer overflow-hidden rounded-lg bg-gray-900 p-2 shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
       onClick={handleClick}
     >
       <div className="relative">
@@ -37,7 +37,7 @@ export default function Card({
         )}
       </div>
       <div className="p-3">
-        <h3 className="line-clamp-2 h-10 overflow-hidden text-sm font-semibold text-gray-800">
+        <h3 className="line-clamp-2 h-10 overflow-hidden text-sm font-semibold text-white">
           {title}
         </h3>
       </div>

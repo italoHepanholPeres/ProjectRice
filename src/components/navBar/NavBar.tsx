@@ -24,12 +24,12 @@ export default function NavBar() {
         ...
       </button>
       <Sidebar open={open} onClose={() => setOpen(false)} />
-      <h1 className="text-5xl font-bold text-amber-100">Project Rice</h1>
+      <h1 className="text-6xl font-bold text-black">Project Rice</h1>
       <div className="flex justify-between gap-4">
         <input
           ref={inputSearch}
           type="text"
-          className="rounded-lg bg-white text-2xl text-black text-shadow-indigo-700"
+          className="rounded-lg bg-gray-800 text-2xl text-white"
           onKeyDown={(e) => {
             if (e.key === "Enter") {
               const value = inputSearch.current?.value.trim();

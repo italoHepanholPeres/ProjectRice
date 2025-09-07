@@ -32,13 +32,13 @@ export default function HorizontalList({
   }
   //console.log(mangas[3].cover);
   return (
-    <div className="w-full p-4">
+    <div className="w-full">
       {title && <h2 className="mb-4 text-xl font-bold">{title}</h2>}
 
       <div
         ref={scrollRef}
         onWheel={handleWheel}
-        className="hide-scrollbar flex overflow-x-auto pb-4"
+        className="hide-scrollbar flex overflow-x-auto"
       >
         <div className="flex space-x-4">
           {mangas.map((manga) => (
