@@ -19,7 +19,7 @@ function Home() {
       const lastUpdateData = await getMangas();
       setlastUpdateMangas(lastUpdateData);
 
-      const isekaiData = await getMangaByTags([Tags.Genderswap]);
+      const isekaiData = await getMangaByTags([Tags.Isekai]);
       setIsekaiMangas(isekaiData);
     }
     fetchData();
