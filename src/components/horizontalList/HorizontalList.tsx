@@ -1,6 +1,6 @@
-import { useRef } from "react";
 import Card from "../card/Card";
 import type { Manga } from "../../entities/Manga";
+import { useCallback } from "react";
 
 interface HorizontalListProps {
   mangas: Manga[];
@@ -13,14 +13,23 @@ export default function HorizontalList({
   title,
   onMangaClick,
 }: HorizontalListProps) {
-  const scrollRef = useRef<HTMLDivElement>(null);
+  const handleWheel = (e: React.WheelEvent<HTMLDivElement>) => {
+    const container = e.currentTarget;
 
-  const handleWheel = (e: React.WheelEvent) => {
-    if (scrollRef.current) {
-      e.preventDefault();
-      scrollRef.current.scrollLeft += e.deltaY;
-    }
+    const scrollAmount = e.deltaY;
+
+    container.scrollLeft += scrollAmount;
+
+    e.preventDefault();
   };
+
+  const handleMouseEnter = useCallback(() => {
+    document.body.style.overflow = "hidden";
+  }, []);
+
+  const handleMouseLeave = useCallback(() => {
+    document.body.style.overflow = "";
+  }, []);
 
   if (!mangas || mangas.length === 0) {
     return (
@@ -30,15 +39,16 @@ export default function HorizontalList({
       </div>
     );
   }
-  //console.log(mangas[3].cover);
+
   return (
     <div className="w-full">
       {title && <h2 className="mb-4 text-xl font-bold">{title}</h2>}
-
       <div
-        ref={scrollRef}
         onWheel={handleWheel}
-        className="hide-scrollbar flex overflow-x-auto"
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+        className="hide-scrollbar flex overflow-x-auto overflow-y-hidden"
+        style={{ touchAction: "pan-y",maxWidth: "1800px", margin:"0 auto"}} 
       >
         <div className="flex space-x-4">
           {mangas.map((manga) => (
