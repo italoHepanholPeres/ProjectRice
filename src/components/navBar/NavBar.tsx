@@ -1,6 +1,5 @@
 import { useRef, useState } from "react";
 import Sidebar from "../sideBar/SideBar";
-import { getMangaByTitle } from "../../api/MangaService";
 import { useNavigate } from "react-router-dom";
 
 export default function NavBar() {

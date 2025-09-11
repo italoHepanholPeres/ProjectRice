@@ -1,4 +1,5 @@
 //card onde os mangás estarão sendo guardados e usados
+import { useNavigate } from "react-router-dom";
 import type { MangaCardProps } from "../../entities/MangaCardProps";
 
 export default function Card({
@@ -6,10 +7,10 @@ export default function Card({
   title,
   coverUrl,
   additionalInfo,
-  onCardClick,
 }: MangaCardProps) {
+  const navigate = useNavigate();
   const handleClick = () => {
-    onCardClick(id);
+    navigate(`/${id}`);
   };
 
   //console.log(coverImage);

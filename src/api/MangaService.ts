@@ -23,7 +23,7 @@ async function mapMangas(mangas: Manga[]) {
   return response.data;
 }*/
 
-export async function getMangas() {
+export async function getMangaList() {
   try {
     const response = await axios.get(`${mangaUrl}`, {
       params: {
@@ -42,7 +42,7 @@ export async function getMangas() {
   }
 }
 
-export async function getMangaByTitle(title: string): Promise<Manga[]> {
+export async function getMangaListByTitle(title: string): Promise<Manga[]> {
   try {
     const response = await axios.get(`${mangaUrl}`, {
       params: {
@@ -60,7 +60,7 @@ export async function getMangaByTitle(title: string): Promise<Manga[]> {
   }
 }
 
-export async function getCoverData(id: string) {
+export async function getCoverListData(id: string) {
   try {
     const response = await axios.get(`${coverUrl}${id}`);
     return response.data.data;
@@ -69,7 +69,7 @@ export async function getCoverData(id: string) {
   }
 }
 
-export async function getMangaByTags(
+export async function getMangaListByTags(
   includedTagsNames: string[] = [],
   excludedTagsNames: string[] = [],
 ) {

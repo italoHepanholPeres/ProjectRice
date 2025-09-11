@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import { getMangaByTitle } from "../../api/MangaService";
+import { getMangaListByTitle } from "../../api/MangaService";
 import VerticalList from "../../components/verticalList/VerticalList";
 import type { Manga } from "../../entities/Manga";
 
@@ -14,7 +14,7 @@ export default function Search() {
     async function fetchMangas() {
       setLoading(true);
       if (title) {
-        const data = await getMangaByTitle(title);
+        const data = await getMangaListByTitle(title);
 
         //nao precisa pq ja ta no getMangaByTitle
         //const mapped = await Promise.all(

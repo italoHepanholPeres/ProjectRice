@@ -1,4 +1,4 @@
-import { getCoverData } from "../api/MangaService";
+import { getCoverListData } from "../api/MangaService";
 import type { Manga } from "../entities/Manga";
 
 //Manga
@@ -20,7 +20,7 @@ export default async function Mapper(manga: any): Promise<Manga> {
   );
 
   const coverId = coverInManga.id;
-  const coverObject = await getCoverData(coverId);
+  const coverObject = await getCoverListData(coverId);
   const fileName = coverObject.attributes.fileName;
 
   const coverUrl = `https://uploads.mangadex.org/covers/${id}/${fileName}`;

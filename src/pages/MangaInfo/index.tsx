@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 
@@ -17,21 +17,19 @@ interface Chapter {
 }
 
 export default function MangaInfoPage() {
-  const { id } = useParams(); // id: string | undefined
+  const { id } = useParams<{ id: string }>(); // id: string | undefined
   const [manga, setManga] = useState<MangaInfo | null>(null);
   const [chapters, setChapters] = useState<Chapter[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (!id) return; 
+    if (!id) return;
 
- 
     const mangaId: string = id;
 
     let mounted = true;
     async function fetchData() {
       try {
- 
         const mangaResponse = await axios.get(
           `https://api.mangadex.org/manga/${mangaId}`,
           {
@@ -39,14 +37,15 @@ export default function MangaInfoPage() {
               "contentRating[]": ["safe"],
               includes: ["cover_art"],
             },
-          }
+          },
         );
 
         const mangaData = mangaResponse.data.data;
         const attrs = mangaData.attributes || {};
 
         const title =
-          (attrs.title && (attrs.title["en"] || Object.values(attrs.title)[0])) ||
+          (attrs.title &&
+            (attrs.title["en"] || Object.values(attrs.title)[0])) ||
           "Título não disponível";
 
         // descrição (similar)
@@ -59,11 +58,17 @@ export default function MangaInfoPage() {
 
         // tags
         const tags =
-          (attrs.tags && attrs.tags.map((t: any) => t.attributes?.name?.en || Object.values(t.attributes?.name || {})[0] || "tag")) ||
+          (attrs.tags &&
+            attrs.tags.map(
+              (t: any) =>
+                t.attributes?.name?.en ||
+                Object.values(t.attributes?.name || {})[0] ||
+                "tag",
+            )) ||
           [];
 
         const coverRel = (mangaData.relationships || []).find(
-          (r: any) => r.type === "cover_art"
+          (r: any) => r.type === "cover_art",
         );
         const coverFileName = coverRel?.attributes?.fileName;
         const coverUrl = coverFileName
@@ -88,14 +93,16 @@ export default function MangaInfoPage() {
               translatedLanguage: ["pt-br", "en"],
               "order[chapter]": "asc",
             },
-          }
+          },
         );
 
-        const mappedChapters = (chaptersResponse.data.data || []).map((ch: any) => ({
-          id: ch.id,
-          title: ch.attributes?.title,
-          chapter: ch.attributes?.chapter,
-        }));
+        const mappedChapters = (chaptersResponse.data.data || []).map(
+          (ch: any) => ({
+            id: ch.id,
+            title: ch.attributes?.title,
+            chapter: ch.attributes?.chapter,
+          }),
+        );
 
         if (!mounted) return;
         setChapters(mappedChapters);
@@ -130,7 +137,7 @@ export default function MangaInfoPage() {
 
   return (
     <div className="flex min-h-screen bg-blue-900 text-white">
-      <aside className="w-1/4 p-6 border-r border-blue-700">
+      <aside className="w-1/4 border-r border-blue-700 p-6">
         {manga.coverUrl && (
           <img
             src={manga.coverUrl}
@@ -138,11 +145,14 @@ export default function MangaInfoPage() {
             className="mb-4 w-full rounded-lg shadow-lg"
           />
         )}
-        <h1 className="text-2xl font-bold mb-2">{manga.title}</h1>
-        <p className="text-sm text-gray-300 mb-4">{manga.description}</p>
+        <h1 className="mb-2 text-2xl font-bold">{manga.title}</h1>
+        <p className="mb-4 text-sm text-gray-300">{manga.description}</p>
         <div className="flex flex-wrap gap-2">
           {manga.tags.map((tag) => (
-            <span key={tag} className="rounded-full bg-blue-700 px-3 py-1 text-xs">
+            <span
+              key={tag}
+              className="rounded-full bg-blue-700 px-3 py-1 text-xs"
+            >
               {tag}
             </span>
           ))}
@@ -150,7 +160,7 @@ export default function MangaInfoPage() {
       </aside>
 
       <main className="flex-1 p-6">
-        <h2 className="text-xl font-semibold mb-4">Capítulos</h2>
+        <h2 className="mb-4 text-xl font-semibold">Capítulos</h2>
         {chapters.length === 0 ? (
           <p className="text-gray-400">Nenhum capítulo disponível.</p>
         ) : (
@@ -158,7 +168,7 @@ export default function MangaInfoPage() {
             {chapters.map((ch) => (
               <li
                 key={ch.id}
-                className="rounded-lg bg-blue-800 p-3 hover:bg-blue-700 cursor-pointer"
+                className="cursor-pointer rounded-lg bg-blue-800 p-3 hover:bg-blue-700"
               >
                 Capítulo {ch.chapter ?? "?"} {ch.title ? `- ${ch.title}` : ""}
               </li>

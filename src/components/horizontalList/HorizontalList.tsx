@@ -5,14 +5,9 @@ import { useCallback } from "react";
 interface HorizontalListProps {
   mangas: Manga[];
   title?: string;
-  onMangaClick: (id: string) => void;
 }
 
-export default function HorizontalList({
-  mangas,
-  title,
-  onMangaClick,
-}: HorizontalListProps) {
+export default function HorizontalList({ mangas, title }: HorizontalListProps) {
   const handleWheel = (e: React.WheelEvent<HTMLDivElement>) => {
     const container = e.currentTarget;
 
@@ -48,7 +43,7 @@ export default function HorizontalList({
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
         className="hide-scrollbar flex overflow-x-auto overflow-y-hidden"
-        style={{ touchAction: "pan-y",maxWidth: "1800px", margin:"0 auto"}} 
+        style={{ touchAction: "pan-y", maxWidth: "1800px", margin: "0 auto" }}
       >
         <div className="flex space-x-4">
           {mangas.map((manga) => (
@@ -58,7 +53,6 @@ export default function HorizontalList({
                 title={manga.title}
                 coverUrl={manga.coverUrl}
                 additionalInfo={manga.additionalInfo}
-                onCardClick={onMangaClick}
               />
             </div>
           ))}

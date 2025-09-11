@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getMangaByTags, getMangas } from "../../api/MangaService";
+import { getMangaList, getMangaListByTags } from "../../api/MangaService";
 import Divider from "../../components/divider/Divider";
 import HorizontalList from "../../components/horizontalList/HorizontalList";
 import NavBar from "../../components/navBar/NavBar";
@@ -17,13 +17,13 @@ function Home() {
   useEffect(() => {
     async function fetchData() {
       //chama e define a lista Atualizados recentemente
-      const lastUpdateData = await getMangas();
+      const lastUpdateData = await getMangaList();
       setlastUpdateMangas(lastUpdateData);
 
-      const isekaiData = await getMangaByTags([Tags.Isekai]);
+      const isekaiData = await getMangaListByTags([Tags.Isekai]);
       setIsekaiMangas(isekaiData);
 
-      const romanceData = await getMangaByTags([Tags.Romance]);
+      const romanceData = await getMangaListByTags([Tags.Romance]);
       setRomanceMangas(romanceData);
     }
     fetchData();
@@ -42,26 +42,11 @@ function Home() {
     <div className="flex h-full w-full flex-col bg-blue-900 bg-gradient-to-b from-blue-900 to-blue-800">
       <NavBar />
       <Divider text="Atualizados recentemente" />
-      <HorizontalList
-        mangas={lastUpdateMangas}
-        onMangaClick={() => {
-          console.log("você acessou o manga");
-        }}
-      />
+      <HorizontalList mangas={lastUpdateMangas} />
       <Divider text="Isekai" />
-      <HorizontalList
-        mangas={isekaiMangas}
-        onMangaClick={() => {
-          console.log("você acessou o manga");
-        }}
-      />
+      <HorizontalList mangas={isekaiMangas} />
       <Divider text="Romance" />
-      <HorizontalList
-        mangas={romanceMangas}
-        onMangaClick={() => {
-          console.log("você acessou o manga");
-        }}
-      />
+      <HorizontalList mangas={romanceMangas} />
     </div>
   );
 }

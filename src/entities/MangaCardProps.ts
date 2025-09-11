@@ -3,5 +3,4 @@ export interface MangaCardProps {
   title: string;
   coverUrl: string;
   additionalInfo?: string;
-  onCardClick: (id: string) => void;
 }
