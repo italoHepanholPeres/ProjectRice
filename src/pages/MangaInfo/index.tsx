@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 interface MangaInfo {
   id: string;
@@ -21,6 +22,7 @@ export default function MangaInfoPage() {
   const [manga, setManga] = useState<MangaInfo | null>(null);
   const [chapters, setChapters] = useState<Chapter[]>([]);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!id) return;
@@ -169,6 +171,7 @@ export default function MangaInfoPage() {
               <li
                 key={ch.id}
                 className="cursor-pointer rounded-lg bg-blue-800 p-3 hover:bg-blue-700"
+                onClick={() => navigate(`/chapter/${ch.id}`)}
               >
                 Capítulo {ch.chapter ?? "?"} {ch.title ? `- ${ch.title}` : ""}
               </li>
