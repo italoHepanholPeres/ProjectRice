@@ -1,5 +1,5 @@
 import Card from "../card/Card";
-import type { Manga } from "../../entities/Manga";
+import type { Manga } from "../../interfaces/Manga";
 import { useCallback } from "react";
 
 interface HorizontalListProps {

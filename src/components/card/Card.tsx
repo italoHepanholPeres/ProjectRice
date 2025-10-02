@@ -1,6 +1,6 @@
 //card onde os mangás estarão sendo guardados e usados
 import { useNavigate } from "react-router-dom";
-import type { MangaCardProps } from "../../entities/MangaCardProps";
+import type { MangaCardProps } from "../../interfaces/MangaCardProps";
 
 export default function Card({
   id,

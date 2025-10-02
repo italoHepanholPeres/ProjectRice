@@ -1,6 +1,6 @@
 import axios from "axios";
-import type { Manga } from "../entities/Manga";
-import type { MangaTag } from "../entities/MangaTag";
+import type { Manga } from "../interfaces/Manga";
+import type { MangaTag } from "../interfaces/MangaTag";
 import Mapper from "../mappers/MangaMapper";
 
 const mangaUrl: string = "https://api.mangadex.org/manga";
@@ -98,4 +98,21 @@ export async function getMangaListByTags(
 
   const mapped = mapMangas((await response).data.data);
   return mapped;
+}
+
+export async function getMangaInfo(mangaId: string) {
+  try {
+    const response = await axios.get(
+      `https://api.mangadex.org/manga/${mangaId}`,
+      {
+        params: {
+          "contentRating[]": ["safe"],
+          includes: ["cover_art"],
+        },
+      },
+    );
+    return response.data.data;
+  } catch (error) {
+    console.log(error);
+  }
 }

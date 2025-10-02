@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { getMangaListByTitle } from "../../api/MangaService";
 import VerticalList from "../../components/verticalList/VerticalList";
-import type { Manga } from "../../entities/Manga";
+import type { Manga } from "../../interfaces/Manga";
 
 export default function Search() {
   const [searchParams] = useSearchParams();

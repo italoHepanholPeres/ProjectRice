@@ -1,4 +1,4 @@
-import type { Manga } from "../../entities/Manga";
+import type { Manga } from "../../interfaces/Manga";
 import Card from "../card/Card";
 
 interface VerticalListProps {

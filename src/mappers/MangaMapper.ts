@@ -1,5 +1,5 @@
 import { getCoverListData } from "../api/MangaService";
-import type { Manga } from "../entities/Manga";
+import type { Manga } from "../interfaces/Manga";
 
 //Manga
 export default async function Mapper(manga: any): Promise<Manga> {

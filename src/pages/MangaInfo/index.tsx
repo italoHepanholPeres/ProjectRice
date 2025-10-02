@@ -2,20 +2,9 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-
-interface MangaInfo {
-  id: string;
-  title: string;
-  description?: string;
-  coverUrl?: string;
-  tags: string[];
-}
-
-interface Chapter {
-  id: string;
-  title?: string;
-  chapter?: string;
-}
+import type { MangaInfo } from "../../interfaces/MangaInfo";
+import type { Chapter } from "../../interfaces/Chapter";
+import { getMangaInfo } from "../../api/MangaService";
 
 export default function MangaInfoPage() {
   const { id } = useParams<{ id: string }>(); // id: string | undefined
@@ -32,17 +21,7 @@ export default function MangaInfoPage() {
     let mounted = true;
     async function fetchData() {
       try {
-        const mangaResponse = await axios.get(
-          `https://api.mangadex.org/manga/${mangaId}`,
-          {
-            params: {
-              "contentRating[]": ["safe"],
-              includes: ["cover_art"],
-            },
-          },
-        );
-
-        const mangaData = mangaResponse.data.data;
+        const mangaData = await getMangaInfo(mangaId);
         const attrs = mangaData.attributes || {};
 
         const title =
@@ -53,8 +32,8 @@ export default function MangaInfoPage() {
         // descrição (similar)
         const description =
           (attrs.description &&
-            (attrs.description["en"] ||
-              attrs.description["pt-br"] ||
+            (attrs.description["pt-br"] ||
+              attrs.description["en"] ||
               Object.values(attrs.description)[0])) ||
           "Sem descrição disponível.";
 
