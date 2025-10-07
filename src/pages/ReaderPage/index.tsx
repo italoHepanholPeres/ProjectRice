@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import axios from "axios";
+import { useNavigate, useParams } from "react-router-dom";
 import { getChapterPages } from "../../api/ChapterService";
 
 function Reader({ chapterId }: { chapterId: string }) {
   const [images, setImages] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
+  const handleClick = () => {
+    navigate("/");
+  };
 
   useEffect(() => {
     const prevBodyOverflow = document.body.style.overflow;
@@ -64,6 +67,12 @@ function Reader({ chapterId }: { chapterId: string }) {
 
   return (
     <div className="flex min-h-screen w-full flex-col items-center overflow-y-auto bg-black p-4 text-white">
+      <button
+        className="fixed top-4 left-4 m-1.5 cursor-pointer rounded-lg bg-blue-900 p-1.5 align-top hover:bg-blue-700"
+        onClick={() => handleClick()}
+      >
+        Voltar
+      </button>
       {images.map((url, index) => (
         <img
           key={index}
