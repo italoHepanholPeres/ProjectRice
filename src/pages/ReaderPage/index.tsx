@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import { getChapterPages } from "../../api/ChapterService";
 
 function Reader({ chapterId }: { chapterId: string }) {
   const [images, setImages] = useState<string[]>([]);
@@ -14,7 +15,6 @@ function Reader({ chapterId }: { chapterId: string }) {
     document.documentElement.style.overflow = "auto";
 
     return () => {
-
       document.body.style.overflow = prevBodyOverflow;
       document.documentElement.style.overflow = prevHtmlOverflow;
     };
@@ -27,17 +27,7 @@ function Reader({ chapterId }: { chapterId: string }) {
 
     async function fetchChapter() {
       try {
-        const res = await axios.get(
-          `https://api.mangadex.org/at-home/server/${chapterId}`
-        );
-
-        const baseUrl = res.data.baseUrl;
-        const hash = res.data.chapter.hash;
-        const data = res.data.chapter.data;
-
-        const pages = data.map(
-          (file: string) => `${baseUrl}/data/${hash}/${file}`
-        );
+        const pages = await getChapterPages(chapterId);
 
         if (!cancelled) {
           setImages(pages);
@@ -58,7 +48,7 @@ function Reader({ chapterId }: { chapterId: string }) {
 
   if (loading) {
     return (
-      <div className="flex min-h-screen items-center justify-center text-white bg-black">
+      <div className="flex min-h-screen items-center justify-center bg-black text-white">
         Carregando capítulo...
       </div>
     );
@@ -66,20 +56,20 @@ function Reader({ chapterId }: { chapterId: string }) {
 
   if (!images.length) {
     return (
-      <div className="flex min-h-screen items-center justify-center text-white bg-black">
+      <div className="flex min-h-screen items-center justify-center bg-black text-white">
         Nenhuma página disponível.
       </div>
     );
   }
 
   return (
-    <div className="flex flex-col items-center bg-black text-white p-4 w-full min-h-screen overflow-y-auto">
+    <div className="flex min-h-screen w-full flex-col items-center overflow-y-auto bg-black p-4 text-white">
       {images.map((url, index) => (
         <img
           key={index}
           src={url}
           alt={`Página ${index + 1}`}
-          className="mb-4 w-full max-w-3xl object-contain rounded-lg"
+          className="mb-4 w-full max-w-3xl rounded-lg object-contain"
         />
       ))}
     </div>
@@ -91,7 +81,7 @@ export default function ReaderPage() {
 
   if (!chapterId) {
     return (
-      <div className="flex min-h-screen items-center justify-center text-white bg-black">
+      <div className="flex min-h-screen items-center justify-center bg-black text-white">
         Capítulo inválido.
       </div>
     );

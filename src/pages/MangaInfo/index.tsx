@@ -3,8 +3,8 @@ import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import type { MangaInfo } from "../../interfaces/MangaInfo";
 import type { Chapter } from "../../interfaces/Chapter";
-import { getMangaChapters, getMangaInfo } from "../../api/MangaService";
-
+import { getMangaInfo } from "../../api/MangaService";
+import { getChapters } from "../../api/ChapterService";
 export default function MangaInfoPage() {
   const { id } = useParams<{ id: string }>(); // id: string | undefined
   const [manga, setManga] = useState<MangaInfo | null | undefined>(null);
@@ -25,7 +25,7 @@ export default function MangaInfoPage() {
         if (!mounted) return;
         setManga(mangaInfo);
 
-        const mangaChapters: Chapter[] = await getMangaChapters(mangaId);
+        const mangaChapters: Chapter[] = await getChapters(mangaId);
 
         if (!mounted) return;
         setChapters(mangaChapters);

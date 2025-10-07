@@ -2,7 +2,6 @@ import axios from "axios";
 import type { Manga } from "../interfaces/Manga";
 import type { MangaTag } from "../interfaces/MangaTag";
 import { mapperToCard, mapperToMangaInfo } from "../mappers/MangaMapper";
-import type { Chapter } from "../interfaces/Chapter";
 
 const mangaUrl: string = "https://api.mangadex.org/manga";
 const coverUrl: string = "https://api.mangadex.org/cover/";
@@ -118,26 +117,4 @@ export async function getMangaInfo(mangaId: string) {
   } catch (error) {
     console.log(error);
   }
-}
-
-export async function getMangaChapters(mangaId: string): Promise<Chapter[]> {
-  // Busca capítulos
-  const chaptersResponse = await axios.get(
-    `https://api.mangadex.org/manga/${mangaId}/feed`,
-    {
-      params: {
-        limit: 200,
-        translatedLanguage: ["pt-br", "en"],
-        "order[chapter]": "asc",
-      },
-    },
-  );
-
-  const mappedChapters = (chaptersResponse.data.data || []).map((ch: any) => ({
-    id: ch.id,
-    title: ch.attributes?.title,
-    chapter: ch.attributes?.chapter,
-  }));
-
-  return mappedChapters;
 }
