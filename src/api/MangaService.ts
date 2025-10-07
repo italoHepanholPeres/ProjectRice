@@ -1,7 +1,7 @@
 import axios from "axios";
 import type { Manga } from "../interfaces/Manga";
 import type { MangaTag } from "../interfaces/MangaTag";
-import Mapper from "../mappers/MangaMapper";
+import { mapperToCard } from "../mappers/MangaMapper";
 
 const mangaUrl: string = "https://api.mangadex.org/manga";
 const coverUrl: string = "https://api.mangadex.org/cover/";
@@ -9,7 +9,7 @@ const coverUrl: string = "https://api.mangadex.org/cover/";
 //mapeia o json
 async function mapMangas(mangas: Manga[]) {
   const mapped: Manga[] = await Promise.all(
-    mangas.map((manga: any) => Mapper(manga)),
+    mangas.map((manga: any) => mapperToCard(manga)),
   );
 
   return mapped;

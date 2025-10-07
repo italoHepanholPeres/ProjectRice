@@ -2,7 +2,7 @@ import { getCoverListData } from "../api/MangaService";
 import type { Manga } from "../interfaces/Manga";
 
 //Manga
-export default async function Mapper(manga: any): Promise<Manga> {
+export async function mapperToCard(manga: any): Promise<Manga> {
   const id: string = manga.id;
 
   const title: string =
