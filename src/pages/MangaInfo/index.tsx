@@ -1,14 +1,13 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import type { MangaInfo } from "../../interfaces/MangaInfo";
 import type { Chapter } from "../../interfaces/Chapter";
-import { getMangaInfo } from "../../api/MangaService";
+import { getMangaChapters, getMangaInfo } from "../../api/MangaService";
 
 export default function MangaInfoPage() {
   const { id } = useParams<{ id: string }>(); // id: string | undefined
-  const [manga, setManga] = useState<MangaInfo | null>(null);
+  const [manga, setManga] = useState<MangaInfo | null | undefined>(null);
   const [chapters, setChapters] = useState<Chapter[]>([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
@@ -21,72 +20,15 @@ export default function MangaInfoPage() {
     let mounted = true;
     async function fetchData() {
       try {
-        const mangaData = await getMangaInfo(mangaId);
-        const attrs = mangaData.attributes || {};
-
-        const title =
-          (attrs.title &&
-            (attrs.title["en"] || Object.values(attrs.title)[0])) ||
-          "Título não disponível";
-
-        // descrição (similar)
-        const description =
-          (attrs.description &&
-            (attrs.description["pt-br"] ||
-              attrs.description["en"] ||
-              Object.values(attrs.description)[0])) ||
-          "Sem descrição disponível.";
-
-        // tags
-        const tags =
-          (attrs.tags &&
-            attrs.tags.map(
-              (t: any) =>
-                t.attributes?.name?.en ||
-                Object.values(t.attributes?.name || {})[0] ||
-                "tag",
-            )) ||
-          [];
-
-        const coverRel = (mangaData.relationships || []).find(
-          (r: any) => r.type === "cover_art",
-        );
-        const coverFileName = coverRel?.attributes?.fileName;
-        const coverUrl = coverFileName
-          ? `https://uploads.mangadex.org/covers/${mangaId}/${coverFileName}`
-          : undefined;
+        const mangaInfo = await getMangaInfo(mangaId);
 
         if (!mounted) return;
-        setManga({
-          id: mangaId,
-          title,
-          description,
-          coverUrl,
-          tags,
-        });
+        setManga(mangaInfo);
 
-        // Busca capítulos
-        const chaptersResponse = await axios.get(
-          `https://api.mangadex.org/manga/${mangaId}/feed`,
-          {
-            params: {
-              limit: 200,
-              translatedLanguage: ["pt-br", "en"],
-              "order[chapter]": "asc",
-            },
-          },
-        );
-
-        const mappedChapters = (chaptersResponse.data.data || []).map(
-          (ch: any) => ({
-            id: ch.id,
-            title: ch.attributes?.title,
-            chapter: ch.attributes?.chapter,
-          }),
-        );
+        const mangaChapters: Chapter[] = await getMangaChapters(mangaId);
 
         if (!mounted) return;
-        setChapters(mappedChapters);
+        setChapters(mangaChapters);
       } catch (error) {
         console.error("Erro ao buscar mangá:", error);
       } finally {
