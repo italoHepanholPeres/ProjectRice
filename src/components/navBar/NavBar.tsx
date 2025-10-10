@@ -23,7 +23,10 @@ export default function NavBar() {
         ...
       </button>
       <Sidebar open={open} onClose={() => setOpen(false)} />
-      <h1 className="text-6xl font-bold text-black">Project Rice</h1>
+      <h1 className="text-6xl font-bold text-black cursor-pointer"
+          onClick={() => navigate('/')}
+      >Project Rice</h1>
+
       <div className="flex justify-between gap-4">
         <input
           ref={inputSearch}

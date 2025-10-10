@@ -5,12 +5,28 @@ import type { MangaInfo } from "../../interfaces/MangaInfo";
 import type { Chapter } from "../../interfaces/Chapter";
 import { getMangaInfo } from "../../api/MangaService";
 import { getChapters } from "../../api/ChapterService";
+import NavBar from "../../components/navBar/NavBar";
+
 export default function MangaInfoPage() {
   const { id } = useParams<{ id: string }>(); // id: string | undefined
   const [manga, setManga] = useState<MangaInfo | null | undefined>(null);
   const [chapters, setChapters] = useState<Chapter[]>([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+
+
+    useEffect(() => {
+    const prevBodyOverflow = document.body.style.overflow;
+    const prevHtmlOverflow = document.documentElement.style.overflow;
+
+    document.body.style.overflow = "auto";
+    document.documentElement.style.overflow = "auto";
+
+    return () => {
+      document.body.style.overflow = prevBodyOverflow;
+      document.documentElement.style.overflow = prevHtmlOverflow;
+    };
+  }, []);
 
   useEffect(() => {
     if (!id) return;
@@ -40,6 +56,7 @@ export default function MangaInfoPage() {
     return () => {
       mounted = false;
     };
+    
   }, [id]);
 
   if (loading) {
@@ -59,8 +76,10 @@ export default function MangaInfoPage() {
   }
 
   return (
-    <div className="flex min-h-screen bg-blue-900 text-white">
-      <aside className="w-1/4 border-r border-blue-700 p-6">
+    <div className="flex h-screen flex-col bg-blue-900 text-white">
+      <NavBar/>
+      <div className="flex flex-1 min-h-0">
+        <aside className="w-1/4 border-r border-blue-700 p-6 overflow-y-auto">
         {manga.coverUrl && (
           <img
             src={manga.coverUrl}
@@ -82,7 +101,7 @@ export default function MangaInfoPage() {
         </div>
       </aside>
 
-      <main className="flex-1 p-6">
+      <main className="flex-1 overflow-y-auto p-6">
         <h2 className="mb-4 text-xl font-semibold">Capítulos</h2>
         {chapters.length === 0 ? (
           <p className="text-gray-400">Nenhum capítulo disponível.</p>
@@ -100,6 +119,7 @@ export default function MangaInfoPage() {
           </ul>
         )}
       </main>
+      </div>
     </div>
   );
 }

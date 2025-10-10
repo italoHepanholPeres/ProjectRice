@@ -1,6 +1,6 @@
 import Card from "../card/Card";
 import type { Manga } from "../../interfaces/Manga";
-import { useCallback } from "react";
+import { useCallback, useRef } from "react";
 
 interface HorizontalListProps {
   mangas: Manga[];
@@ -8,16 +8,20 @@ interface HorizontalListProps {
 }
 
 export default function HorizontalList({ mangas, title }: HorizontalListProps) {
+  const scrollRef = useRef<HTMLDivElement>(null);
+  let isDown = false;
+  let startX = 0;
+  let scrollLeft = 0;
+
+    // Scroll com a roda do mouse (horizontal)
   const handleWheel = (e: React.WheelEvent<HTMLDivElement>) => {
     const container = e.currentTarget;
-
-    const scrollAmount = e.deltaY;
-
-    container.scrollLeft += scrollAmount;
-
+    container.scrollLeft += e.deltaY;
     e.preventDefault();
   };
 
+
+  // Evitar scroll da página ao entrar na lista
   const handleMouseEnter = useCallback(() => {
     document.body.style.overflow = "hidden";
   }, []);
@@ -38,11 +42,34 @@ export default function HorizontalList({ mangas, title }: HorizontalListProps) {
   return (
     <div className="w-full">
       {title && <h2 className="mb-4 text-xl font-bold">{title}</h2>}
+
       <div
-        onWheel={handleWheel}
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
-        className="hide-scrollbar flex overflow-x-auto overflow-y-hidden"
+        ref={scrollRef}
+        //onWheel={handleWheel}
+        //onMouseEnter={handleMouseEnter}
+        onMouseLeave={() => {
+          handleMouseLeave();
+          isDown = false;
+          scrollRef.current?.classList.remove("cursor-grabbing");
+        }}
+        onMouseDown={(e) => {
+          isDown = true;
+          startX = e.pageX - (scrollRef.current?.offsetLeft ?? 0);
+          scrollLeft = scrollRef.current?.scrollLeft ?? 0;
+          scrollRef.current?.classList.add("cursor-grabbing");
+        }}
+        onMouseUp={() => {
+          isDown = false;
+          scrollRef.current?.classList.remove("cursor-grabbing");
+        }}
+        onMouseMove={(e) => {
+          if (!isDown) return;
+          e.preventDefault();
+          const x = e.pageX - (scrollRef.current?.offsetLeft ?? 0);
+          const walk = (x - startX) * 2; // ajuste da velocidade do arraste
+          if (scrollRef.current) scrollRef.current.scrollLeft = scrollLeft - walk;
+        }}
+        className="hide-scrollbar flex overflow-x-auto overflow-y-hidden cursor-grab select-none scroll-smooth"
         style={{ touchAction: "pan-y", maxWidth: "1800px", margin: "0 auto" }}
       >
         <div className="flex space-x-4">

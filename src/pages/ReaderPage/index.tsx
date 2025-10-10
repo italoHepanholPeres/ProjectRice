@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { getChapterPages } from "../../api/ChapterService";
+import NavBar from "../../components/navBar/NavBar";
 
 function Reader({ chapterId }: { chapterId: string }) {
   const [images, setImages] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+
   const handleClick = () => {
     navigate("/");
   };
@@ -67,12 +69,6 @@ function Reader({ chapterId }: { chapterId: string }) {
 
   return (
     <div className="flex min-h-screen w-full flex-col items-center overflow-y-auto bg-black p-4 text-white">
-      <button
-        className="fixed top-4 left-4 m-1.5 cursor-pointer rounded-lg bg-blue-900 p-1.5 align-top hover:bg-blue-700"
-        onClick={() => handleClick()}
-      >
-        Voltar
-      </button>
       {images.map((url, index) => (
         <img
           key={index}
@@ -96,5 +92,14 @@ export default function ReaderPage() {
     );
   }
 
-  return <Reader chapterId={chapterId} key={chapterId} />;
+  return (
+    <div className="relative min-h-screen bg-black text-white">
+
+      <div className="fixed top-0 left-0 w-full z-50">
+        <NavBar />
+      </div>
+
+      <Reader chapterId={chapterId} key={chapterId} />
+    </div>
+  );
 }
